@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">KatalogFilm</string>
+    <string name="hint_title">Masukkan judul film</string>
+    <string name="find">Find</string>
+</resources>
