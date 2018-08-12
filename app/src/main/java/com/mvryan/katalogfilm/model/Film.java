@@ -10,24 +10,47 @@ import java.util.List;
 
 public class Film {
 
-    @SerializedName("id")
-    private int id;
-    @SerializedName("title")
-    private String title;
-    @SerializedName("release_date")
-    private String release_date;
-    @SerializedName("overview")
-    private String overview;
-    @SerializedName("poster_path")
-    private String poster_path;
-    @SerializedName("vote_average")
-    private float vote_average;
-    @SerializedName("popularity")
-    private float popularity;
-    @SerializedName("genre_ids")
-    private List<Genre> genreIds;
+    private String vote_average;
 
-    public int getId() {
+    private String backdrop_path;
+
+    private String adult;
+
+    private String id;
+
+    private String title;
+
+    private String overview;
+
+    private String original_language;
+
+    private String[] genre_ids;
+
+    private String release_date;
+
+    private String original_title;
+
+    private String vote_count;
+
+    private String poster_path;
+
+    private String video;
+
+    private String popularity;
+
+    public String getVote_average() {
+        return vote_average;
+    }
+
+    public String getBackdrop_path() {
+        return backdrop_path;
+    }
+
+    public String getAdult() {
+        return adult;
+    }
+
+    public String getId() {
         return id;
     }
 
@@ -35,27 +58,39 @@ public class Film {
         return title;
     }
 
+    public String getOverview() {
+        return overview;
+    }
+
+    public String getOriginal_language() {
+        return original_language;
+    }
+
+    public String[] getGenre_ids() {
+        return genre_ids;
+    }
+
     public String getRelease_date() {
         return release_date;
     }
 
-    public String getOverview() {
-        return overview;
+    public String getOriginal_title() {
+        return original_title;
+    }
+
+    public String getVote_count() {
+        return vote_count;
     }
 
     public String getPoster_path() {
         return poster_path;
     }
 
-    public float getVote_average() {
-        return vote_average;
+    public String getVideo() {
+        return video;
     }
 
-    public float getPopularity() {
+    public String getPopularity() {
         return popularity;
-    }
-
-    public List<Genre> getGenreIds() {
-        return genreIds;
     }
 }

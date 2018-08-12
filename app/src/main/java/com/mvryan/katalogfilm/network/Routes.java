@@ -12,7 +12,7 @@ import retrofit2.http.Query;
 
 public interface Routes {
 
-    @GET("3/search/movie")
+    @GET("search/movie")
     Call<Result> getResult (@Query("api_key") String apiKey,
                             @Query("language") String lang,
                             @Query("query") String filmName);

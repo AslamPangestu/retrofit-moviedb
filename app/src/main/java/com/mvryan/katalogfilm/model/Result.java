@@ -2,6 +2,7 @@ package com.mvryan.katalogfilm.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,28 +11,27 @@ import java.util.List;
 
 public class Result {
 
-    @SerializedName("page")
-    private int page;
-    @SerializedName("total_results")
-    private int totalResult;
-    @SerializedName("total_pages")
-    private int totalPage;
-    @SerializedName("results")
-    private List<Film> filmList;
+    private List<Film> results;
 
-    public int getPage() {
+    private String page;
+
+    private String total_pages;
+
+    private String total_results;
+
+    public List<Film> getResults() {
+        return results;
+    }
+
+    public String getPage() {
         return page;
     }
 
-    public int getTotalResult() {
-        return totalResult;
+    public String getTotal_pages() {
+        return total_pages;
     }
 
-    public int getTotalPage() {
-        return totalPage;
-    }
-
-    public List<Film> getFilmList() {
-        return filmList;
+    public String getTotal_results() {
+        return total_results;
     }
 }
