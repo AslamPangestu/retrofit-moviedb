@@ -1,104 +1,80 @@
 package com.mvryan.katalogfilm;
 
-import android.content.Intent;
-import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
-import com.mvryan.katalogfilm.adapter.FilmAdapter;
-import com.mvryan.katalogfilm.model.Film;
-import com.mvryan.katalogfilm.model.Result;
-import com.mvryan.katalogfilm.network.Networks;
-import com.mvryan.katalogfilm.network.Routes;
-import com.mvryan.katalogfilm.utils.FilmListener;
+import com.mvryan.katalogfilm.fragment.HomeFragment;
+import com.mvryan.katalogfilm.fragment.NavDrawerFragment;
+import com.mvryan.katalogfilm.fragment.SearchFragment;
+import com.mvryan.katalogfilm.fragment.SettingFragment;
+import com.mvryan.katalogfilm.utils.listener.FragmentDrawerListener;
 
-import java.util.List;
+public class MainActivity extends AppCompatActivity implements FragmentDrawerListener{
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class MainActivity extends AppCompatActivity implements FilmListener{
-
-    private RecyclerView recyclerView;
-    private FilmAdapter filmAdapter;
-
-    private static String API_KEY = "a3bcf179bcd3a4cfef5b41daf788b14d";
-    private static String LANG = "en-US";
-    private Routes routes;
-
-    private EditText titleEdt;
-    private Button findBtn;
+    private Toolbar toolbar;
+    private NavDrawerFragment drawerFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        titleEdt = findViewById(R.id.title_edt);
-        findBtn = findViewById(R.id.find_btn);
+        toolbar = findViewById(R.id.toolbar);
 
-        routes = Networks.filmRequest().create(Routes.class);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        findBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String title = titleEdt.getText().toString();
-                getFilm(title);
-            }
-        });
+        drawerFragment = (NavDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_nav_drawer);
+        drawerFragment.setUp(R.id.fragment_nav_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
+        drawerFragment.setFragmentDrawerListener(this);
 
-    }
-
-    private void getFilm(String title) {
-        Call<Result> resultCall = routes.getResult(BuildConfig.API_DBMOVIE, BuildConfig.LANG_DBMOVIE, title);
-        resultCall.enqueue(new Callback<Result>() {
-            @Override
-            public void onResponse(@NonNull Call<Result> call, @NonNull Response<Result> response) {
-                if (response.isSuccessful()) {
-                    Toast.makeText(getApplicationContext(), "Film ditemukan", Toast.LENGTH_LONG).show();
-
-                    List<Film> films = response.body().getResults();
-                    generateFilm(films);
-                } else {
-                    Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Result> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Film tidak ada", Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
-    private void generateFilm(List<Film> films) {
-        recyclerView = findViewById(R.id.film_list);
-        filmAdapter = new FilmAdapter(films,this);
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        recyclerView.setHasFixedSize(true);
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
-        recyclerView.setAdapter(filmAdapter);
-
+        displayView(0);
     }
 
     @Override
-    public void onClick(Film film) {
-        Intent intent = new Intent(getApplicationContext(), FilmDetailActivity.class);
-        intent.putExtra("Title",film.getOriginal_title());
-        intent.putExtra("Poster",film.getPoster_path());
-        intent.putExtra("Vote",film.getVote_average());
-        intent.putExtra("Popularity",film.getPopularity());
-        intent.putExtra("Release_Date",film.getRelease_date());
-        intent.putExtra("Overview",film.getOverview());
-        startActivity(intent);
+    public void onDrawerItemSelected(View view, int position) {
+        displayView(position);
+    }
+
+    private void displayView(int position) {
+        Fragment fragment = null;
+        String title = getString(R.string.app_name);
+        switch (position) {
+            case 0:
+                fragment = new HomeFragment();
+                title = getString(R.string.app_name);
+                break;
+            case 1:
+                fragment = new SearchFragment();
+                title = getString(R.string.nav_item_search);
+                break;
+            case 2:
+                fragment = new SettingFragment();
+                title = getString(R.string.nav_item_setting);
+                break;
+            default:
+                break;
+        }
+
+        if (fragment != null) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.container_body, fragment);
+            fragmentTransaction.commit();
+
+            // set the toolbar title
+            getSupportActionBar().setTitle(title);
+        }
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 }

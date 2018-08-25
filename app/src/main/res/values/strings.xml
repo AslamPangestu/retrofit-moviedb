@@ -1,5 +1,22 @@
 <resources>
-    <string name="app_name">KatalogFilm</string>
-    <string name="hint_title">Masukkan judul film</string>
-    <string name="find">Find</string>
+    <string name="app_name">Movie Catalogue</string>
+    <string name="hint_title">Please insert movie title</string>
+    <string name="search_btn">Find</string>
+
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+
+    <string name="nav_item_home">Home</string>
+    <string name="nav_item_search">Search</string>
+    <string name="nav_item_setting">Setting</string>
+
+    <string name="tabs_upcoming">Upcoming</string>
+    <string name="tabs_now_playing">Now Playing</string>
+
+    <!-- navigation drawer item labels  -->
+    <string-array name="nav_drawer_labels">
+        <item>@string/nav_item_home</item>
+        <item>@string/nav_item_search</item>
+        <item>@string/nav_item_setting</item>
+    </string-array>
 </resources>

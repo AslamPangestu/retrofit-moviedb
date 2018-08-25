@@ -1,4 +1,4 @@
-package com.mvryan.katalogfilm.adapter;
+package com.mvryan.katalogfilm.utils.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide;
 import com.mvryan.katalogfilm.BuildConfig;
 import com.mvryan.katalogfilm.R;
 import com.mvryan.katalogfilm.model.Film;
-import com.mvryan.katalogfilm.utils.FilmListener;
+import com.mvryan.katalogfilm.utils.listener.FilmListener;
 
 import java.util.List;
 

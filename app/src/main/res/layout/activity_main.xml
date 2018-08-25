@@ -1,43 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp"
-    android:orientation="vertical"
     tools:context="com.mvryan.katalogfilm.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/title_edt"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:hint="@string/hint_title"
-            android:layout_weight="7" />
-
-        <Button
-            android:id="@+id/find_btn"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:text="@string/find"
-            android:layout_weight="3" />
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
 
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/film_list"
+    <FrameLayout
+        android:id="@+id/container_body"
         android:layout_width="match_parent"
-        android:scrollbars="vertical"
         android:layout_height="0dp"
-        android:layout_weight="9"
-        android:paddingTop="20dp">
+        android:layout_weight="1" />
 
-    </android.support.v7.widget.RecyclerView>
+    <fragment
+        android:id="@+id/fragment_nav_drawer"
+        android:name="com.mvryan.katalogfilm.fragment.NavDrawerFragment"
+        android:layout_width="@dimen/nav_drawer_width"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:layout="@layout/fragment_nav_drawer"
+        tools:layout="@layout/fragment_nav_drawer" />
 
-</LinearLayout>
+</android.support.v4.widget.DrawerLayout>
