@@ -27,7 +27,7 @@ public class FilmDetailActivity extends AppCompatActivity {
         poster = getIntent().getStringExtra("Poster");
         vote = getIntent().getStringExtra("Vote");
         popularity = getIntent().getStringExtra("Popularity");
-        release_date = getIntent().getStringExtra("Release_date");
+        release_date = getIntent().getStringExtra("Release_Date");
         overview = getIntent().getStringExtra("Overview");
 
         title_txt = findViewById(R.id.title_detail);
@@ -38,10 +38,10 @@ public class FilmDetailActivity extends AppCompatActivity {
         poster_img = findViewById(R.id.poster_detail);
 
         title_txt.setText(title);
-        vote_txt.setText(vote);
-        popularity_txt.setText(popularity);
-        release_date_txt.setText(release_date);
-        overview_txt.setText(overview);
+        vote_txt.setText(getString(R.string.vote_average)+" : "+vote);
+        popularity_txt.setText(getString(R.string.popularity)+" : "+popularity);
+        release_date_txt.setText(getString(R.string.release_date)+" : "+release_date);
+        overview_txt.setText(getString(R.string.overview)+" : \n"+overview);
 
         Glide.with(getApplicationContext())
                 .load(BuildConfig.IMG_DBMOVIE+poster)

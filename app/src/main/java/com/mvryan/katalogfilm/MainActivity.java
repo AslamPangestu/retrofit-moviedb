@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.mvryan.katalogfilm.fragment.FavouriteFragment;
 import com.mvryan.katalogfilm.fragment.HomeFragment;
 import com.mvryan.katalogfilm.fragment.NavDrawerFragment;
 import com.mvryan.katalogfilm.fragment.SearchFragment;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawerLis
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setElevation(2);
 
         drawerFragment = (NavDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_nav_drawer);
         drawerFragment.setUp(R.id.fragment_nav_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
@@ -57,6 +59,10 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawerLis
             case 2:
                 fragment = new SettingFragment();
                 title = getString(R.string.nav_item_setting);
+                break;
+            case 3:
+                fragment = new FavouriteFragment();
+                title = getString(R.string.nav_item_favourite);
                 break;
             default:
                 break;

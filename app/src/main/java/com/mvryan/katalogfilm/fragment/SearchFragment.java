@@ -9,6 +9,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import com.mvryan.katalogfilm.network.Routes;
 import com.mvryan.katalogfilm.utils.listener.FilmListener;
 
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,7 +40,6 @@ import retrofit2.Response;
 
 public class SearchFragment extends Fragment implements FilmListener {
 
-
     private RecyclerView recyclerView;
     private FilmAdapter filmAdapter;
 
@@ -46,6 +47,8 @@ public class SearchFragment extends Fragment implements FilmListener {
 
     private EditText titleEdt;
     private Button findBtn;
+
+    private String lang;
 
 
     @Nullable
@@ -59,10 +62,18 @@ public class SearchFragment extends Fragment implements FilmListener {
         super.onViewCreated(view, savedInstanceState);
 
         titleEdt = view.findViewById(R.id.title_edt);
+        titleEdt.setHint(R.string.hint_title);
         findBtn = view.findViewById(R.id.find_btn);
+        findBtn.setText(R.string.search_btn);
         recyclerView = view.findViewById(R.id.film_list);
 
         routes = Networks.filmRequest().create(Routes.class);
+
+        if (Locale.getDefault().getLanguage().equals("en")){
+            lang = BuildConfig.LANG_DBMOVIE_US;
+        }else if (Locale.getDefault().getLanguage().equals("in")){
+            lang = BuildConfig.LANG_DBMOVIE_ID;
+        }
 
         findBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,7 +81,7 @@ public class SearchFragment extends Fragment implements FilmListener {
                 String title = titleEdt.getText().toString();
                 if (TextUtils.isEmpty(title))
                 {
-                    Toast.makeText(getActivity(), "Nama film belum dimasukkan", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), getString(R.string.txt_empty), Toast.LENGTH_SHORT).show();
                 }
                 getFilm(title);
             }
@@ -79,35 +90,34 @@ public class SearchFragment extends Fragment implements FilmListener {
     }
 
     private void getFilm(String title) {
-        Call<Result> resultCall = routes.getResult(BuildConfig.API_DBMOVIE, BuildConfig.LANG_DBMOVIE, title);
+        Call<Result> resultCall = routes.getSearch(BuildConfig.API_DBMOVIE, lang, title);
         resultCall.enqueue(new Callback<Result>() {
             @Override
             public void onResponse(@NonNull Call<Result> call, @NonNull Response<Result> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(getActivity(), "Film ditemukan", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), getString(R.string.found), Toast.LENGTH_LONG).show();
 
                     List<Film> films = response.body().getResults();
                     generateFilm(films);
                 } else {
-                    Toast.makeText(getActivity(), "Error", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), getString(R.string.error), Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Result> call, Throwable t) {
-                Toast.makeText(getActivity(), "Film tidak ada", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), getString(R.string.not_found), Toast.LENGTH_LONG).show();
             }
         });
     }
 
     private void generateFilm(List<Film> films) {
-        filmAdapter = new FilmAdapter(films, this);
+        filmAdapter = new FilmAdapter(films, this, getContext());
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(filmAdapter);
-
     }
 
     @Override

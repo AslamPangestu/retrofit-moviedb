@@ -25,7 +25,7 @@ public class HomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home,container,false);
+        return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
     @Override
@@ -41,8 +41,8 @@ public class HomeFragment extends Fragment {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager());
-        viewPagerAdapter.addFragment(new NowPlayingFragment(), "Now Playing");
-        viewPagerAdapter.addFragment(new UpcomingFragment(), "Upcoming");
+        viewPagerAdapter.addFragment(new NowPlayingFragment(), getString(R.string.tabs_now_playing));
+        viewPagerAdapter.addFragment(new UpcomingFragment(), getString(R.string.tabs_upcoming));
         viewPager.setAdapter(viewPagerAdapter);
     }
 }

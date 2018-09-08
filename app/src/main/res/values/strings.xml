@@ -3,20 +3,42 @@
     <string name="hint_title">Please insert movie title</string>
     <string name="search_btn">Find</string>
 
+    <string name="release_date">Release Date</string>
+    <string name="vote_average">Vote Average</string>
+    <string name="popularity">Popularity</string>
+    <string name="overview">Overview</string>
+
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
 
     <string name="nav_item_home">Home</string>
     <string name="nav_item_search">Search</string>
     <string name="nav_item_setting">Setting</string>
+    <string name="nav_item_favourite">Favourite</string>
 
     <string name="tabs_upcoming">Upcoming</string>
     <string name="tabs_now_playing">Now Playing</string>
+    <string name="welcome">Welcome to Movie Catalogue</string>
+
+    <string name="not_found">Film not found</string>
+    <string name="found">Film found</string>
+    <string name="error">Error get film</string>
+    <string name="txt_empty">Please insert the title</string>
 
     <!-- navigation drawer item labels  -->
     <string-array name="nav_drawer_labels">
         <item>@string/nav_item_home</item>
         <item>@string/nav_item_search</item>
         <item>@string/nav_item_setting</item>
+        <item>@string/nav_item_favourite</item>
+    </string-array>
+
+    <string name="lang">Choose language</string>
+    <string name="tv_lang">Language</string>
+    <string name="btn_favourite">Favourite</string>
+
+    <string-array name="lang_list">
+        <item>Indonesia</item>
+        <item>United State</item>
     </string-array>
 </resources>

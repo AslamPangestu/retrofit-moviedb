@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">Movie Catalogue</string>
+    <string name="hint_title">Masukkan judul film</string>
+    <string name="search_btn">Cari</string>
+
+    <string name="release_date">Tanggal Keluar</string>
+    <string name="vote_average">Vote rata2</string>
+    <string name="popularity">Popularitas</string>
+    <string name="overview">Rangkuman</string>
+
+    <string name="drawer_open">Buka</string>
+    <string name="drawer_close">Tutup</string>
+
+    <string name="nav_item_home">Halaman Utama</string>
+    <string name="nav_item_search">Pencarian</string>
+    <string name="nav_item_setting">Pengaturan</string>
+    <string name="nav_item_favourite">Disukai</string>
+
+    <string name="tabs_upcoming">Akan Tayang</string>
+    <string name="tabs_now_playing">Sedang Tayang</string>
+    <string name="welcome">Selamat datang di Movie Catalogue</string>
+
+    <string name="not_found">Film tidak ditemukan</string>
+    <string name="found">Film ditemukan</string>
+    <string name="error">Gagal mendapatkan film</string>
+    <string name="txt_empty">Tolong masukkan judul film</string>
+
+    <!-- navigation drawer item labels  -->
+    <string-array name="nav_drawer_labels">
+        <item>@string/nav_item_home</item>
+        <item>@string/nav_item_search</item>
+        <item>@string/nav_item_setting</item>
+        <item>@string/nav_item_favourite</item>
+    </string-array>
+
+    <string name="lang">Pilih bahasa</string>
+    <string name="tv_lang">Bahasa</string>
+    <string name="btn_favourite">Disukai</string>
+
+    <string-array name="lang_list">
+        <item>Indonesia</item>
+        <item>United State</item>
+    </string-array>
+</resources>

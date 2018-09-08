@@ -27,7 +27,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.5"
-                android:text="Title"
                 android:textSize="28sp" />
 
             <TextView
@@ -35,7 +34,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.16"
-                android:text="Vote"
                 android:textSize="15sp" />
 
             <TextView
@@ -43,7 +41,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.16"
-                android:text="Popularity"
                 android:textSize="15sp" />
 
             <TextView
@@ -51,7 +48,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.16"
-                android:text="Release Date"
                 android:textSize="15sp" />
 
         </LinearLayout>
@@ -63,7 +59,11 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.75"
-        android:text="Overview"
         android:textSize="20sp" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"/>
 
 </LinearLayout>

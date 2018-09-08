@@ -15,7 +15,8 @@ android {
         debug{
             buildConfigField 'String', "API_DBMOVIE", MOVIEDB_API
             buildConfigField 'String', "URL_DBMOVIE", MOVIEDB_URL
-            buildConfigField 'String', "LANG_DBMOVIE", MOVIEDB_LANG
+            buildConfigField 'String', "LANG_DBMOVIE_US", MOVIEDB_LANG_US
+            buildConfigField 'String', "LANG_DBMOVIE_ID", MOVIEDB_LANG_ID
             buildConfigField 'String', "IMG_DBMOVIE", MOVIEDB_IMG
         }
         release {
@@ -23,7 +24,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField 'String', "API_DBMOVIE", MOVIEDB_API
             buildConfigField 'String', "URL_DBMOVIE", MOVIEDB_URL
-            buildConfigField 'String', "LANG_DBMOVIE", MOVIEDB_LANG
+            buildConfigField 'String', "LANG_DBMOVIE_US", MOVIEDB_LANG_US
+            buildConfigField 'String', "LANG_DBMOVIE_ID", MOVIEDB_LANG_ID
             buildConfigField 'String', "IMG_DBMOVIE", MOVIEDB_IMG
         }
     }

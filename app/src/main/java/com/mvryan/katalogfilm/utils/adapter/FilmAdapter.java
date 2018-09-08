@@ -1,5 +1,6 @@
 package com.mvryan.katalogfilm.utils.adapter;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -25,8 +26,10 @@ public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.FilmViewHolder
 
     private List<Film> filmList;
     private FilmListener filmListener;
+    Context mContext;
 
-    public FilmAdapter(List<Film> filmList, FilmListener filmListener) {
+    public FilmAdapter(List<Film> filmList, FilmListener filmListener, Context context) {
+        this.mContext = context;
         this.filmList = filmList;
         this.filmListener = filmListener;
     }
@@ -41,8 +44,8 @@ public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.FilmViewHolder
     @Override
     public void onBindViewHolder(@NonNull FilmViewHolder holder, final int position) {
         holder.title.setText(filmList.get(position).getTitle());
-        holder.releaseDate.setText("Release Date : "+filmList.get(position).getRelease_date());
-        holder.vote.setText("Vote Average : "+String.valueOf(filmList.get(position).getVote_average()));
+        holder.releaseDate.setText(mContext.getString(R.string.release_date)+" : "+filmList.get(position).getRelease_date());
+        holder.vote.setText(mContext.getString(R.string.vote_average)+" : "+filmList.get(position).getVote_average());
         Glide.with(holder.poster.getContext())
                 .load(BuildConfig.IMG_DBMOVIE+filmList.get(position).getPoster_path())
                 .into(holder.poster);

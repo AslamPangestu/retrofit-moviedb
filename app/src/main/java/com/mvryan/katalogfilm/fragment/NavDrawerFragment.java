@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.mvryan.katalogfilm.R;
 import com.mvryan.katalogfilm.utils.adapter.NavDrawerAdapter;
@@ -30,8 +31,6 @@ import java.util.List;
 
 public class NavDrawerFragment extends Fragment {
 
-    private static String TAG = NavDrawerFragment.class.getSimpleName();
-
     private RecyclerView recyclerView;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private DrawerLayout drawerLayout;
@@ -39,6 +38,8 @@ public class NavDrawerFragment extends Fragment {
     private View viewContainer;
     private static String[] titles = null;
     private FragmentDrawerListener fragmentDrawerListener;
+
+    TextView introduceTxt;
 
     public NavDrawerFragment() {
     }
@@ -64,6 +65,7 @@ public class NavDrawerFragment extends Fragment {
         super.onCreate(savedInstanceState);
         // drawer labels
         titles = getActivity().getResources().getStringArray(R.array.nav_drawer_labels);
+
     }
 
     @Nullable
@@ -71,6 +73,8 @@ public class NavDrawerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_nav_drawer, container, false);
         recyclerView = layout.findViewById(R.id.drawerList);
+        introduceTxt = layout.findViewById(R.id.intorduce);
+        introduceTxt.setText(R.string.welcome);
 
         navDrawerAdapter = new NavDrawerAdapter(getData());
         recyclerView.setAdapter(navDrawerAdapter);
@@ -141,7 +145,7 @@ public class NavDrawerFragment extends Fragment {
                 public void onLongPress(MotionEvent e) {
                     View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
                     if (child != null && clickListener != null) {
-                        clickListener.onLongClick(child, recyclerView.getChildPosition(child));
+                        clickListener.onLongClick(child, recyclerView.getChildAdapterPosition(child));
                     }
                 }
             });

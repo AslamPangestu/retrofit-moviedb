@@ -21,12 +21,12 @@
             android:src="@mipmap/ic_app" />
 
         <TextView
+            android:id="@+id/intorduce"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_below="@+id/profile"
             android:layout_centerInParent="true"
-            android:text="Welcome to Catalogue Movie"
             android:textColor="@color/textColor" />
 
     </RelativeLayout>
