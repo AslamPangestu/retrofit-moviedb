@@ -17,5 +17,6 @@ public class DBContract {
         static String VOTE = "vote";
         static String POPULARITY = "popularity";
         static String OVERVIEW = "overview";
+        static String ID="id";
     }
 }

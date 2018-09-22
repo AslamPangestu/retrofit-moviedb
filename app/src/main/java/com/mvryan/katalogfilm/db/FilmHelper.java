@@ -10,7 +10,7 @@ import com.mvryan.katalogfilm.model.Film;
 
 import java.util.ArrayList;
 
-import static android.provider.BaseColumns._ID;
+import static com.mvryan.katalogfilm.db.DBContract.FavouriteColumn.ID;
 import static com.mvryan.katalogfilm.db.DBContract.FavouriteColumn.OVERVIEW;
 import static com.mvryan.katalogfilm.db.DBContract.FavouriteColumn.POPULARITY;
 import static com.mvryan.katalogfilm.db.DBContract.FavouriteColumn.POSTER_PATH;
@@ -47,14 +47,13 @@ public class FilmHelper {
 
     public ArrayList<Film> query() {
         ArrayList<Film> arrayList = new ArrayList<Film>();
-        Cursor cursor = database.query(DATABASE_TABLE, null, null, null, null, null, _ID + " DESC", null);
-        cursor.moveToFirst();
         Film film;
+        Cursor cursor = database.query(DATABASE_TABLE, null, null,null, null, null, ID + " DESC", null);
+        cursor.moveToFirst();
         if (cursor.getCount() > 0) {
             do {
-
                 film = new Film();
-                film.setId(cursor.getInt(cursor.getColumnIndexOrThrow(_ID)));
+                film.setId(cursor.getInt(cursor.getColumnIndexOrThrow(ID)));
                 film.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(TITLE)));
                 film.setRelease_date(cursor.getString(cursor.getColumnIndexOrThrow(RELEASE_DATE)));
                 film.setPopularity(cursor.getString(cursor.getColumnIndexOrThrow(POPULARITY)));
@@ -73,6 +72,7 @@ public class FilmHelper {
 
     public long insert(Film film) {
         ContentValues initialValues = new ContentValues();
+        initialValues.put(ID, film.getId());
         initialValues.put(TITLE, film.getTitle());
         initialValues.put(RELEASE_DATE, film.getRelease_date());
         initialValues.put(POPULARITY, film.getPopularity());
@@ -90,11 +90,11 @@ public class FilmHelper {
         args.put(POSTER_PATH, film.getPoster_path());
         args.put(OVERVIEW, film.getOverview());
         args.put(VOTE, film.getVote_average());
-        return database.update(DATABASE_TABLE, args, _ID + "= '" + film.getId() + "'", null);
+        return database.update(DATABASE_TABLE, args, ID + "= '" + film.getId() + "'", null);
     }
 
     public int delete(int id) {
-        return database.delete(TABLE_FAVOURITE, _ID + " = '" + id + "'", null);
+        return database.delete(TABLE_FAVOURITE, ID + " = '" + id + "'", null);
     }
 
 }
