@@ -3,6 +3,8 @@
     package="com.mvryan.katalogfilm">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <permission android:name="com.mvryan.katalogfilm.READ_DATABASE" android:protectionLevel="normal"/>
+    <permission android:name="com.mvryan.katalogfilm.WRITE_DATABASE" android:protectionLevel="normal"/>
 
     <application
         android:allowBackup="true"
@@ -18,6 +20,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".FilmDetailActivity" />
+        <provider
+            android:authorities="com.mvryan.katalogfilm"
+            android:name=".db.provider.FilmProvider"
+            android:exported="true"
+            android:readPermission="com.mvryan.katalogfilm.READ_DATABASE"
+            android:writePermission="com.mvryan.katalogfilm.WRITE_DATABASE" />
     </application>
 
 </manifest>

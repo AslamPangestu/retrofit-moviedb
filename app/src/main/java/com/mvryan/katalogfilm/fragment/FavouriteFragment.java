@@ -1,14 +1,17 @@
 package com.mvryan.katalogfilm.fragment;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +27,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import static com.mvryan.katalogfilm.db.DBContract.CONTENT_URI;
+import static com.mvryan.katalogfilm.db.DBContract.FavouriteColumn.ID;
+
 /**
  * Created by mvryan on 08/09/18.
  */
@@ -32,8 +38,7 @@ public class FavouriteFragment extends Fragment implements FilmListener {
 
     private RecyclerView recyclerView;
     private FavouriteAdapter favouriteAdapter;
-    private FilmHelper filmHelper;
-    private LinkedList<Film> filmList;
+    private Cursor filmList;
 
     public FavouriteFragment() {
     }
@@ -48,10 +53,6 @@ public class FavouriteFragment extends Fragment implements FilmListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.favourite_list);
-
-        filmHelper = new FilmHelper(getContext());
-        filmHelper.open();
-        filmList = new LinkedList<>();
 
         favouriteAdapter = new FavouriteAdapter(this, getContext());
         favouriteAdapter.setFilmList(filmList);
@@ -71,41 +72,48 @@ public class FavouriteFragment extends Fragment implements FilmListener {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (filmHelper != null){
-            filmHelper.close();
-        }
     }
 
     @Override
     public void onClick(Film film) {
         Intent intent = new Intent(getActivity(), FilmDetailActivity.class);
-        intent.putExtra("Title", film.getOriginal_title());
+        intent.putExtra("Id", film.getId());
+        intent.putExtra("Title", film.getTitle());
         intent.putExtra("Poster", film.getPoster_path());
         intent.putExtra("Vote", film.getVote_average());
         intent.putExtra("Popularity", film.getPopularity());
         intent.putExtra("Release_Date", film.getRelease_date());
         intent.putExtra("Overview", film.getOverview());
-        startActivity(intent);
+        getActivity().startActivityForResult(intent,1);
+//        startActivity(intent);
     }
 
-    private class LoadFilmAsync extends AsyncTask<Void, Void, ArrayList<Film>> {
+    private class LoadFilmAsync extends AsyncTask<Void, Void, Cursor> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
         }
  
         @Override
-        protected ArrayList<Film> doInBackground(Void... voids) {
-            return filmHelper.query();
+        protected Cursor doInBackground(Void... voids) {
+            return getContext().getContentResolver().query(CONTENT_URI,null,null,null,ID + " DESC");
         }
  
         @Override
-        protected void onPostExecute(ArrayList<Film> films) {
+        protected void onPostExecute(Cursor films) {
             super.onPostExecute(films);
- 
-            filmList.addAll(films);
+
+            filmList = films;
             favouriteAdapter.setFilmList(filmList);
             favouriteAdapter.notifyDataSetChanged();
+
+            if (filmList.getCount() == 0){
+                showSnackbarMessage("Tidak ada data saat ini");
+            }
         }
+    }
+
+    private void showSnackbarMessage(String message){
+        Snackbar.make(recyclerView, message, Snackbar.LENGTH_SHORT).show();
     }
 }

@@ -1,8 +1,12 @@
 package com.mvryan.katalogfilm;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Debug;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +17,15 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.mvryan.katalogfilm.db.FilmHelper;
 import com.mvryan.katalogfilm.model.Film;
+
+import static com.mvryan.katalogfilm.db.DBContract.CONTENT_URI;
+import static com.mvryan.katalogfilm.db.DBContract.FavouriteColumn.ID;
+import static com.mvryan.katalogfilm.db.DBContract.FavouriteColumn.OVERVIEW;
+import static com.mvryan.katalogfilm.db.DBContract.FavouriteColumn.POPULARITY;
+import static com.mvryan.katalogfilm.db.DBContract.FavouriteColumn.POSTER_PATH;
+import static com.mvryan.katalogfilm.db.DBContract.FavouriteColumn.RELEASE_DATE;
+import static com.mvryan.katalogfilm.db.DBContract.FavouriteColumn.TITLE;
+import static com.mvryan.katalogfilm.db.DBContract.FavouriteColumn.VOTE;
 
 /**
  * Created by mvryan on 12/08/18.
@@ -26,7 +39,6 @@ public class FilmDetailActivity extends AppCompatActivity {
     Button favourite;
 
     public static int RESULT_ADD = 101;
-    public static int RESULT_DELETE = 301;
 
     FilmHelper filmHelper;
     Film film;
@@ -42,6 +54,7 @@ public class FilmDetailActivity extends AppCompatActivity {
         popularity = getIntent().getStringExtra("Popularity");
         release_date = getIntent().getStringExtra("Release_Date");
         overview = getIntent().getStringExtra("Overview");
+        film_id = getIntent().getStringExtra("Id");
 
         title_txt = findViewById(R.id.title_detail);
         vote_txt = findViewById(R.id.vote_detail);
@@ -64,17 +77,32 @@ public class FilmDetailActivity extends AppCompatActivity {
         filmHelper = new FilmHelper(this);
         filmHelper.open();
 
+        Uri uri = getIntent().getData();
+
+        if (uri != null) {
+            Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+            if (cursor != null){
+                if(cursor.moveToFirst()) film = new Film(cursor);
+                cursor.close();
+            }
+        }
+
+        favourite.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.textColor));
+
+        favourite.setText(getString(R.string.btn_favourite));
+
         favourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Film newFilm = new Film();
-                newFilm.setTitle(title);
-                newFilm.setVote_average(vote);
-                newFilm.setPopularity(popularity);
-                newFilm.setRelease_date(release_date);
-                newFilm.setOverview(overview);
-                newFilm.setPoster_path(poster);
-                filmHelper.insert(newFilm);
+                ContentValues newFilm = new ContentValues();
+                newFilm.put(ID,film_id);
+                newFilm.put(TITLE,title);
+                newFilm.put(VOTE,vote);
+                newFilm.put(POPULARITY,popularity);
+                newFilm.put(RELEASE_DATE,release_date);
+                newFilm.put(OVERVIEW,overview);
+                newFilm.put(POSTER_PATH,poster);
+                getContentResolver().insert(CONTENT_URI,newFilm);
 
                 setResult(RESULT_ADD);
                 finish();

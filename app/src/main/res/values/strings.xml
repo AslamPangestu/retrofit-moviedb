@@ -36,6 +36,7 @@
     <string name="lang">Choose language</string>
     <string name="tv_lang">Language</string>
     <string name="btn_favourite">Favourite</string>
+    <string name="btn_not_favourite">Not Favourite</string>
 
     <string-array name="lang_list">
         <item>Indonesia</item>

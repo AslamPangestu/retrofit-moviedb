@@ -1,7 +1,7 @@
 package com.mvryan.katalogfilm.utils.adapter;
 
-import android.app.Activity;
 import android.content.Context;
+import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,7 +18,6 @@ import com.mvryan.katalogfilm.model.Film;
 import com.mvryan.katalogfilm.utils.listener.FilmListener;
 
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Created by mvryan on 09/08/18.
@@ -26,7 +25,7 @@ import java.util.List;
 
 public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.FavouriteViewHolder> {
 
-    private LinkedList<Film> filmList;
+    private Cursor filmList;
     private FilmListener filmListener;
     Context mContext;
 
@@ -35,11 +34,11 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Favo
         this.filmListener = filmListener;
     }
 
-    public LinkedList<Film> getFilmList() {
+    public Cursor getFilmList() {
         return filmList;
     }
  
-    public void setFilmList(LinkedList<Film> filmList) {
+    public void setFilmList(Cursor filmList) {
         this.filmList = filmList;
     }
 
@@ -52,23 +51,32 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Favo
 
     @Override
     public void onBindViewHolder(@NonNull FavouriteViewHolder holder, final int position) {
-        holder.title.setText(filmList.get(position).getTitle());
-        holder.releaseDate.setText(mContext.getString(R.string.release_date)+" : "+filmList.get(position).getRelease_date());
-        holder.vote.setText(mContext.getString(R.string.vote_average)+" : "+filmList.get(position).getVote_average());
+        final Film film = getItem(position);
+        holder.title.setText(film.getTitle());
+        holder.releaseDate.setText(mContext.getString(R.string.release_date)+" : "+film.getRelease_date());
+        holder.vote.setText(mContext.getString(R.string.vote_average)+" : "+film.getVote_average());
         Glide.with(holder.poster.getContext())
-                .load(BuildConfig.IMG_DBMOVIE+filmList.get(position).getPoster_path())
+                .load(BuildConfig.IMG_DBMOVIE+film.getPoster_path())
                 .into(holder.poster);
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                filmListener.onClick(filmList.get(position));
+                filmListener.onClick(film);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return filmList.size();
+        if (filmList == null) return 0;
+        return filmList.getCount();
+    }
+
+    private Film getItem(int position){
+        if (!filmList.moveToPosition(position)) {
+            throw new IllegalStateException("Position invalid");
+        }
+        return new Film(filmList);
     }
 
     public class FavouriteViewHolder extends RecyclerView.ViewHolder {

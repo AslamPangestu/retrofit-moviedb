@@ -1,11 +1,16 @@
 package com.mvryan.katalogfilm.model;
 
+import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
+import com.mvryan.katalogfilm.db.DBContract;
 
 import java.util.List;
+
+import static com.mvryan.katalogfilm.db.DBContract.getColumnInt;
+import static com.mvryan.katalogfilm.db.DBContract.getColumnString;
 
 /**
  * Created by mvryan on 29/07/18.
@@ -42,6 +47,16 @@ public class Film implements Parcelable {
     private String popularity;
 
     public Film() {
+    }
+
+    public Film(Cursor cursor){
+        this.id = getColumnInt(cursor, DBContract.FavouriteColumn.ID);
+        this.title = getColumnString(cursor, DBContract.FavouriteColumn.TITLE);
+        this.poster_path = getColumnString(cursor, DBContract.FavouriteColumn.POSTER_PATH);
+        this.popularity = getColumnString(cursor, DBContract.FavouriteColumn.POPULARITY);
+        this.overview = getColumnString(cursor, DBContract.FavouriteColumn.OVERVIEW);
+        this.release_date = getColumnString(cursor, DBContract.FavouriteColumn.RELEASE_DATE);
+        this.vote_average = getColumnString(cursor, DBContract.FavouriteColumn.VOTE);
     }
 
     public void setVote_average(String vote_average) {
@@ -163,6 +178,7 @@ public class Film implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
         dest.writeString(this.title);
         dest.writeString(this.poster_path);
         dest.writeString(this.popularity);
@@ -172,6 +188,8 @@ public class Film implements Parcelable {
     }
 
     protected Film(Parcel in) {
+        this.id = in.readInt();
+        this.title = in.readString();
         this.poster_path = in.readString();
         this.popularity = in.readString();
         this.vote_average = in.readString();

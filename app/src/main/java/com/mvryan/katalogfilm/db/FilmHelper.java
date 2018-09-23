@@ -82,19 +82,38 @@ public class FilmHelper {
         return database.insert(DATABASE_TABLE, null, initialValues);
     }
 
-    public int update(Film film) {
-        ContentValues args = new ContentValues();
-        args.put(TITLE, film.getTitle());
-        args.put(RELEASE_DATE, film.getRelease_date());
-        args.put(POPULARITY, film.getPopularity());
-        args.put(POSTER_PATH, film.getPoster_path());
-        args.put(OVERVIEW, film.getOverview());
-        args.put(VOTE, film.getVote_average());
-        return database.update(DATABASE_TABLE, args, ID + "= '" + film.getId() + "'", null);
-    }
-
     public int delete(int id) {
         return database.delete(TABLE_FAVOURITE, ID + " = '" + id + "'", null);
+    }
+
+    public Cursor queryByIdProvider(String id){
+        return database.query(DATABASE_TABLE,null
+                ,ID + " = ?"
+                ,new String[]{id}
+                ,null
+                ,null
+                ,null
+                ,null);
+    }
+    public Cursor queryProvider(){
+        return database.query(DATABASE_TABLE
+                ,null
+                ,null
+                ,null
+                ,null
+                ,null
+                ,ID + " DESC");
+    }
+    public long insertProvider(ContentValues values){
+        return database.insert(DATABASE_TABLE,null,values);
+    }
+
+    public int updateProvider(String id,ContentValues values){
+        return database.update(DATABASE_TABLE,values,ID +" = ?",new String[]{id} );
+    }
+
+    public int deleteProvider(String id){
+        return database.delete(DATABASE_TABLE,ID + " = ?", new String[]{id});
     }
 
 }
