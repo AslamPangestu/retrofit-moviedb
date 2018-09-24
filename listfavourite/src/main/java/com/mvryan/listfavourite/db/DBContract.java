@@ -1,11 +1,11 @@
-package com.mvryan.katalogfilm.db;
+package com.mvryan.listfavourite.db;
 
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
 /**
- * Created by mvryan on 08/09/18.
+ * Created by mvryan on 23/09/18.
  */
 
 public class DBContract {
@@ -36,4 +36,5 @@ public class DBContract {
     public static long getColumnLong(Cursor cursor, String columnName) {
         return cursor.getLong( cursor.getColumnIndex(columnName) );
     }
+
 }

@@ -1,13 +1,13 @@
-package com.mvryan.katalogfilm.model;
+package com.mvryan.listfavourite.model;
 
 import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.mvryan.katalogfilm.db.DBContract;
+import com.mvryan.listfavourite.db.DBContract;
 
-import static com.mvryan.katalogfilm.db.DBContract.getColumnInt;
-import static com.mvryan.katalogfilm.db.DBContract.getColumnString;
+import static com.mvryan.listfavourite.db.DBContract.getColumnInt;
+import static com.mvryan.listfavourite.db.DBContract.getColumnString;
 
 /**
  * Created by mvryan on 29/07/18.
@@ -194,7 +194,7 @@ public class Film implements Parcelable {
         this.overview = in.readString();
     }
 
-    public static final Parcelable.Creator<Film> CREATOR = new Parcelable.Creator<Film>() {
+    public static final Creator<Film> CREATOR = new Creator<Film>() {
 
         @Override
         public Film createFromParcel(Parcel source) {

@@ -23,6 +23,7 @@ import com.mvryan.katalogfilm.network.Routes;
 import com.mvryan.katalogfilm.utils.adapter.FilmAdapter;
 import com.mvryan.katalogfilm.utils.listener.FilmListener;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -108,7 +109,6 @@ public class NowPlayingFragment extends Fragment implements FilmListener {
         intent.putExtra("Popularity", film.getPopularity());
         intent.putExtra("Release_Date", film.getRelease_date());
         intent.putExtra("Overview", film.getOverview());
-        getActivity().startActivityForResult(intent,1);
-//        startActivity(intent);
+        startActivity(intent);
     }
 }

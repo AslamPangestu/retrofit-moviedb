@@ -4,13 +4,13 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import static com.mvryan.katalogfilm.db.DBContract.FavouriteColumn.ID;
 import static com.mvryan.katalogfilm.db.DBContract.FavouriteColumn.OVERVIEW;
 import static com.mvryan.katalogfilm.db.DBContract.FavouriteColumn.POPULARITY;
 import static com.mvryan.katalogfilm.db.DBContract.FavouriteColumn.POSTER_PATH;
 import static com.mvryan.katalogfilm.db.DBContract.FavouriteColumn.RELEASE_DATE;
 import static com.mvryan.katalogfilm.db.DBContract.FavouriteColumn.TITLE;
 import static com.mvryan.katalogfilm.db.DBContract.FavouriteColumn.VOTE;
+import static com.mvryan.katalogfilm.db.DBContract.FavouriteColumn._ID;
 import static com.mvryan.katalogfilm.db.DBContract.TABLE_FAVOURITE;
 
 /**
@@ -22,7 +22,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static String DATABASE_NAME = "dbfilm";
     private static final int DATABASE_VERSION = 1;
     private static final String CREATE_TABLE_FAVOURITE = "create table " + TABLE_FAVOURITE +
-            " ( " + ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+            " ( " + _ID + " INTEGER PRIMARY KEY," +
             TITLE + " TEXT NOT NULL," +
             POPULARITY + " TEXT NOT NULL," +
             VOTE + " TEXT NOT NULL," +

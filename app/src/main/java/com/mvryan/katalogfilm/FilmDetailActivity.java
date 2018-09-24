@@ -19,7 +19,7 @@ import com.mvryan.katalogfilm.db.FilmHelper;
 import com.mvryan.katalogfilm.model.Film;
 
 import static com.mvryan.katalogfilm.db.DBContract.CONTENT_URI;
-import static com.mvryan.katalogfilm.db.DBContract.FavouriteColumn.ID;
+import static com.mvryan.katalogfilm.db.DBContract.FavouriteColumn._ID;
 import static com.mvryan.katalogfilm.db.DBContract.FavouriteColumn.OVERVIEW;
 import static com.mvryan.katalogfilm.db.DBContract.FavouriteColumn.POPULARITY;
 import static com.mvryan.katalogfilm.db.DBContract.FavouriteColumn.POSTER_PATH;
@@ -95,7 +95,7 @@ public class FilmDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ContentValues newFilm = new ContentValues();
-                newFilm.put(ID,film_id);
+                newFilm.put(_ID,film_id);
                 newFilm.put(TITLE,title);
                 newFilm.put(VOTE,vote);
                 newFilm.put(POPULARITY,popularity);

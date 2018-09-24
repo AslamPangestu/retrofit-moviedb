@@ -23,12 +23,8 @@ import com.mvryan.katalogfilm.model.Film;
 import com.mvryan.katalogfilm.utils.adapter.FavouriteAdapter;
 import com.mvryan.katalogfilm.utils.listener.FilmListener;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
 import static com.mvryan.katalogfilm.db.DBContract.CONTENT_URI;
-import static com.mvryan.katalogfilm.db.DBContract.FavouriteColumn.ID;
+import static com.mvryan.katalogfilm.db.DBContract.FavouriteColumn._ID;
 
 /**
  * Created by mvryan on 08/09/18.
@@ -96,7 +92,7 @@ public class FavouriteFragment extends Fragment implements FilmListener {
  
         @Override
         protected Cursor doInBackground(Void... voids) {
-            return getContext().getContentResolver().query(CONTENT_URI,null,null,null,ID + " DESC");
+            return getContext().getContentResolver().query(CONTENT_URI,null,null,null,_ID + " DESC");
         }
  
         @Override
