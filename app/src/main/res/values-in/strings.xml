@@ -42,4 +42,7 @@
         <item>Indonesia</item>
         <item>United State</item>
     </string-array>
+    <string name="appwidget_text">Favoritku</string>
+    <string name="add_widget">Tambah Film</string>
+    <string name="empty_text">Kosong</string>
 </resources>

@@ -37,7 +37,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Favo
     public Cursor getFilmList() {
         return filmList;
     }
- 
+
     public void setFilmList(Cursor filmList) {
         this.filmList = filmList;
     }

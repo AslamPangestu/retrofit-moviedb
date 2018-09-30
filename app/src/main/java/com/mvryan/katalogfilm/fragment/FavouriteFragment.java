@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
 import com.mvryan.katalogfilm.FilmDetailActivity;
 import com.mvryan.katalogfilm.R;
 import com.mvryan.katalogfilm.db.FilmHelper;
@@ -73,15 +74,8 @@ public class FavouriteFragment extends Fragment implements FilmListener {
     @Override
     public void onClick(Film film) {
         Intent intent = new Intent(getActivity(), FilmDetailActivity.class);
-        intent.putExtra("Id", film.getId());
-        intent.putExtra("Title", film.getTitle());
-        intent.putExtra("Poster", film.getPoster_path());
-        intent.putExtra("Vote", film.getVote_average());
-        intent.putExtra("Popularity", film.getPopularity());
-        intent.putExtra("Release_Date", film.getRelease_date());
-        intent.putExtra("Overview", film.getOverview());
-        getActivity().startActivityForResult(intent,1);
-//        startActivity(intent);
+        intent.putExtra("movie", new Gson().toJson(film));
+        startActivity(intent);
     }
 
     private class LoadFilmAsync extends AsyncTask<Void, Void, Cursor> {

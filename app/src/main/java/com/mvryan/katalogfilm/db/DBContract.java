@@ -13,7 +13,6 @@ public class DBContract {
     public static String TABLE_FAVOURITE = "tbl_favourite";
 
     public static final class FavouriteColumn implements BaseColumns {
-        public static String _ID="_id";
         public static String TITLE = "title";
         public static String POSTER_PATH = "poster_path";
         public static String RELEASE_DATE = "release_date";

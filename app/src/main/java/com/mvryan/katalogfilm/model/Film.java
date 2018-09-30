@@ -46,6 +46,12 @@ public class Film implements Parcelable {
     public Film() {
     }
 
+    public Film(int id, String title, String poster_path) {
+        this.id = id;
+        this.title = title;
+        this.poster_path = poster_path;
+    }
+
     public Film(Cursor cursor){
         this.id = getColumnInt(cursor, DBContract.FavouriteColumn._ID);
         this.title = getColumnString(cursor, DBContract.FavouriteColumn.TITLE);

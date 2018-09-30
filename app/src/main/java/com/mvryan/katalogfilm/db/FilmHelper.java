@@ -10,7 +10,7 @@ import com.mvryan.katalogfilm.model.Film;
 
 import java.util.ArrayList;
 
-import static com.mvryan.katalogfilm.db.DBContract.FavouriteColumn._ID;
+import static android.provider.BaseColumns._ID;
 import static com.mvryan.katalogfilm.db.DBContract.FavouriteColumn.OVERVIEW;
 import static com.mvryan.katalogfilm.db.DBContract.FavouriteColumn.POPULARITY;
 import static com.mvryan.katalogfilm.db.DBContract.FavouriteColumn.POSTER_PATH;

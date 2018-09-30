@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.mvryan.katalogfilm.BuildConfig;
 import com.mvryan.katalogfilm.FilmDetailActivity;
 import com.mvryan.katalogfilm.R;
@@ -94,7 +95,7 @@ public class NowPlayingFragment extends Fragment implements FilmListener {
         filmAdapter = new FilmAdapter(films, this, getContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), new LinearLayoutManager(getActivity()).getOrientation()));
         recyclerView.setAdapter(filmAdapter);
 
     }
@@ -102,13 +103,7 @@ public class NowPlayingFragment extends Fragment implements FilmListener {
     @Override
     public void onClick(Film film) {
         Intent intent = new Intent(getActivity(), FilmDetailActivity.class);
-        intent.putExtra("Id", film.getId());
-        intent.putExtra("Title", film.getTitle());
-        intent.putExtra("Poster", film.getPoster_path());
-        intent.putExtra("Vote", film.getVote_average());
-        intent.putExtra("Popularity", film.getPopularity());
-        intent.putExtra("Release_Date", film.getRelease_date());
-        intent.putExtra("Overview", film.getOverview());
+        intent.putExtra("movie", new Gson().toJson(film));
         startActivity(intent);
     }
 }
