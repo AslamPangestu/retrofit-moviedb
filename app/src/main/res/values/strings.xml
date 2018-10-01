@@ -45,4 +45,7 @@
     <string name="appwidget_text">My Favourite</string>
     <string name="add_widget">Add Film</string>
     <string name="empty_text">Empty</string>
+    <string name="content_title">Open Movie Catalogue</string>
+    <string name="content_text">Pleas open Movie Catalogue this day</string>
+    <string name="subtext">Movie Catalogue</string>
 </resources>

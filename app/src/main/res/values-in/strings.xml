@@ -45,4 +45,8 @@
     <string name="appwidget_text">Favoritku</string>
     <string name="add_widget">Tambah Film</string>
     <string name="empty_text">Kosong</string>
+
+    <string name="content_title">Buka Katalog Film</string>
+    <string name="content_text">Silahkan buka Katalog film hari ini</string>
+    <string name="subtext">Katalog Film</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.mvryan.katalogfilm;
+package com.mvryan.katalogfilm.utils.widget;
 
 import android.content.Intent;
 import android.widget.RemoteViewsService;

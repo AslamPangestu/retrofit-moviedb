@@ -52,9 +52,9 @@ public class NavDrawerFragment extends Fragment {
         List<NavDrawerItem> navDrawerItems = new ArrayList<>();
 
         // preparing navigation drawer items
-        for (int i = 0; i < titles.length; i++) {
+        for (String title : titles) {
             NavDrawerItem item = new NavDrawerItem();
-            item.setTitle(titles[i]);
+            item.setTitle(title);
             navDrawerItems.add(item);
         }
         return navDrawerItems;

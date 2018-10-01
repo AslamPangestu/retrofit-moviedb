@@ -1,6 +1,7 @@
 package com.mvryan.katalogfilm.utils.adapter;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -26,7 +27,7 @@ public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.FilmViewHolder
 
     private List<Film> filmList;
     private FilmListener filmListener;
-    Context mContext;
+    private Context mContext;
 
     public FilmAdapter(List<Film> filmList, FilmListener filmListener, Context context) {
         this.mContext = context;
@@ -34,11 +35,14 @@ public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.FilmViewHolder
         this.filmListener = filmListener;
     }
 
+    public List<Film> getFilmList() {
+        return filmList;
+    }
+
     @NonNull
     @Override
     public FilmViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.film_item, parent, false);
-        return new FilmViewHolder(view);
+        return new FilmViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.film_item, parent, false));
     }
 
     @Override

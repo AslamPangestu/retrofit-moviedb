@@ -24,6 +24,7 @@ import com.mvryan.katalogfilm.network.Routes;
 import com.mvryan.katalogfilm.utils.adapter.FilmAdapter;
 import com.mvryan.katalogfilm.utils.listener.FilmListener;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -39,6 +40,7 @@ public class UpcomingFragment extends Fragment implements FilmListener{
 
     private RecyclerView recyclerView;
     private FilmAdapter filmAdapter;
+    private List<Film> films = new ArrayList<>();
 
     private Routes routes;
 
@@ -66,17 +68,29 @@ public class UpcomingFragment extends Fragment implements FilmListener{
             lang = BuildConfig.LANG_DBMOVIE_ID;
         }
 
-        routes = Networks.filmRequest().create(Routes.class);
-        getNowPlaying();
+        if(savedInstanceState != null){
+            films = savedInstanceState.getParcelableArrayList("films");
+            generateFilm(films);
+        }else {
+            routes = Networks.filmRequest().create(Routes.class);
+            getUpcoming();
+        }
     }
 
-    private void getNowPlaying(){
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList("films", new ArrayList<>(filmAdapter.getFilmList()));
+    }
+
+
+    private void getUpcoming(){
         Call<Result> resultCall = routes.getUpcoming(BuildConfig.API_DBMOVIE, lang);
         resultCall.enqueue(new Callback<Result>() {
             @Override
             public void onResponse(@NonNull Call<Result> call, @NonNull Response<Result> response) {
                 if (response.isSuccessful()) {
-                    List<Film> films = response.body().getResults();
+                    films = response.body().getResults();
                     generateFilm(films);
                 } else {
                     Toast.makeText(getActivity(), getString(R.string.error), Toast.LENGTH_LONG).show();

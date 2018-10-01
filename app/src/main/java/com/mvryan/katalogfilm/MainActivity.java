@@ -1,12 +1,21 @@
 package com.mvryan.katalogfilm;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.content.res.Configuration;
+import android.graphics.BitmapFactory;
+import android.os.Handler;
+import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
 import com.mvryan.katalogfilm.fragment.FavouriteFragment;
@@ -14,12 +23,17 @@ import com.mvryan.katalogfilm.fragment.HomeFragment;
 import com.mvryan.katalogfilm.fragment.NavDrawerFragment;
 import com.mvryan.katalogfilm.fragment.SearchFragment;
 import com.mvryan.katalogfilm.fragment.SettingFragment;
+import com.mvryan.katalogfilm.utils.CacheManager;
 import com.mvryan.katalogfilm.utils.listener.FragmentDrawerListener;
 
 public class MainActivity extends AppCompatActivity implements FragmentDrawerListener{
 
     private Toolbar toolbar;
     private NavDrawerFragment drawerFragment;
+
+    public static final int NOTIFICAITION_ID = 1;
+    private NotificationCompat.Builder notification;
+    private Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +50,26 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawerLis
         drawerFragment.setUp(R.id.fragment_nav_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
         drawerFragment.setFragmentDrawerListener(this);
 
-        displayView(0);
+        int orientation = getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            displayView(CacheManager.grab("position", 0));
+        } else {
+            if (CacheManager.isExist("position")) {
+                displayView(CacheManager.grab("position", 0));
+            } else {
+                displayView(0);
+            }
+        }
+//        sendNotification();
     }
+
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            notificationManager.notify(NOTIFICAITION_ID, notification.build());
+        }
+    };
 
     @Override
     public void onDrawerItemSelected(View view, int position) {
@@ -68,6 +100,8 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawerLis
                 break;
         }
 
+        CacheManager.save("position", position);
+
         if (fragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -82,5 +116,29 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawerLis
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
 
+    }
+
+    public void sendNotification() {
+        Intent intent = getPackageManager().getLaunchIntentForPackage("com.mvryan.katalogfilm");
+        startActivity(intent);
+        PendingIntent pendingIntent = PendingIntent
+                .getActivity(this, 0, intent, 0);
+ 
+        notification = (NotificationCompat.Builder) new NotificationCompat
+                        .Builder(this)
+                        .setSmallIcon(R.mipmap.ic_notif)
+                        .setContentIntent(pendingIntent)
+                        .setLargeIcon(BitmapFactory
+                                .decodeResource(getResources()
+                                        , R.mipmap.ic_notif))
+                        .setContentTitle(getResources()
+                                .getString(R.string.content_title))
+                        .setContentText(getResources()
+                                .getString(R.string.content_text))
+                        .setSubText(getResources()
+                                .getString(R.string.subtext))
+                        .setAutoCancel(true);
+        
+        handler.postDelayed(runnable, 5000);
     }
 }

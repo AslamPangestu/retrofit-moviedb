@@ -13,6 +13,7 @@
 
 
     <application
+        android:name=".KatalogFilmApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_app"
         android:label="@string/app_name"
@@ -36,10 +37,10 @@
             android:readPermission="com.mvryan.katalogfilm.READ_DATABASE"
             android:writePermission="com.mvryan.katalogfilm.WRITE_DATABASE" />
 
-        <service android:name=".StackWidgetService"
+        <service android:name=".utils.widget.StackWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS"/>
 
-        <receiver android:name=".FavouriteListImage">
+        <receiver android:name=".utils.widget.FavouriteListImage">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>

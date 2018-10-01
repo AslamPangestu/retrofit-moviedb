@@ -27,7 +27,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Favo
 
     private Cursor filmList;
     private FilmListener filmListener;
-    Context mContext;
+    private Context mContext;
 
     public FavouriteAdapter( FilmListener filmListener, Context context) {
         this.mContext = context;
@@ -45,8 +45,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Favo
     @NonNull
     @Override
     public FavouriteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.film_item, parent, false);
-        return new FavouriteViewHolder(view);
+        return new FavouriteViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.film_item, parent, false));
     }
 
     @Override

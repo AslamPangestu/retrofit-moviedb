@@ -1,11 +1,9 @@
-package com.mvryan.katalogfilm;
+package com.mvryan.katalogfilm.utils.widget;
 
-import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Binder;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,11 +11,11 @@ import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import com.bumptech.glide.Glide;
+import com.mvryan.katalogfilm.BuildConfig;
+import com.mvryan.katalogfilm.R;
 import com.mvryan.katalogfilm.db.DBContract;
 import com.mvryan.katalogfilm.model.Film;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import static android.provider.BaseColumns._ID;

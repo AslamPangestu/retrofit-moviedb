@@ -1,4 +1,4 @@
-package com.mvryan.katalogfilm;
+package com.mvryan.katalogfilm.utils.widget;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.widget.RemoteViews;
 import android.widget.Toast;
+
+import com.mvryan.katalogfilm.R;
 
 /**
  * Implementation of App Widget functionality.

@@ -40,6 +40,7 @@ public class NowPlayingFragment extends Fragment implements FilmListener {
 
     private RecyclerView recyclerView;
     private FilmAdapter filmAdapter;
+    private List<Film> films = new ArrayList<>();
 
     private Routes routes;
 
@@ -66,17 +67,28 @@ public class NowPlayingFragment extends Fragment implements FilmListener {
             lang = BuildConfig.LANG_DBMOVIE_ID;
         }
 
-        routes = Networks.filmRequest().create(Routes.class);
-        getNowPlaying();
+        if(savedInstanceState != null){
+            films = savedInstanceState.getParcelableArrayList("films");
+            generateFilm(films);
+        }else {
+            getNowPlaying();
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList("films", new ArrayList<>(filmAdapter.getFilmList()));
     }
 
     private void getNowPlaying(){
+        routes = Networks.filmRequest().create(Routes.class);
         Call<Result> resultCall = routes.getNowPlaying(BuildConfig.API_DBMOVIE, lang);
         resultCall.enqueue(new Callback<Result>() {
             @Override
             public void onResponse(@NonNull Call<Result> call, @NonNull Response<Result> response) {
                 if (response.isSuccessful()) {
-                    List<Film> films = response.body().getResults();
+                    films = response.body().getResults();
                     generateFilm(films);
                 } else {
                     Toast.makeText(getActivity(), getString(R.string.error), Toast.LENGTH_LONG).show();

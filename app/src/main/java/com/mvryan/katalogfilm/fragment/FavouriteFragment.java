@@ -24,6 +24,8 @@ import com.mvryan.katalogfilm.model.Film;
 import com.mvryan.katalogfilm.utils.adapter.FavouriteAdapter;
 import com.mvryan.katalogfilm.utils.listener.FilmListener;
 
+import java.util.ArrayList;
+
 import static com.mvryan.katalogfilm.db.DBContract.CONTENT_URI;
 import static com.mvryan.katalogfilm.db.DBContract.FavouriteColumn._ID;
 
@@ -49,13 +51,14 @@ public class FavouriteFragment extends Fragment implements FilmListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         recyclerView = view.findViewById(R.id.favourite_list);
 
         favouriteAdapter = new FavouriteAdapter(this, getContext());
         favouriteAdapter.setFilmList(filmList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), new LinearLayoutManager(getActivity()).getOrientation()));
         recyclerView.setAdapter(favouriteAdapter);
 
         new LoadFilmAsync().execute();
@@ -79,27 +82,32 @@ public class FavouriteFragment extends Fragment implements FilmListener {
     }
 
     private class LoadFilmAsync extends AsyncTask<Void, Void, Cursor> {
+
+        private FilmHelper filmHelper;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            filmHelper = new FilmHelper(getContext());
+            filmHelper.open();
         }
  
         @Override
         protected Cursor doInBackground(Void... voids) {
-            return getContext().getContentResolver().query(CONTENT_URI,null,null,null,_ID + " DESC");
+            return filmHelper.queryProvider();
         }
  
         @Override
         protected void onPostExecute(Cursor films) {
             super.onPostExecute(films);
-
             filmList = films;
-            favouriteAdapter.setFilmList(filmList);
-            favouriteAdapter.notifyDataSetChanged();
-
             if (filmList.getCount() == 0){
                 showSnackbarMessage("Tidak ada data saat ini");
+            } else {
+                favouriteAdapter.setFilmList(filmList);
+                favouriteAdapter.notifyDataSetChanged();
             }
+            filmHelper.close();
         }
     }
 
