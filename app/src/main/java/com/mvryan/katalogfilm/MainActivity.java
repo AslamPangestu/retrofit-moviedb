@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawerLis
                 displayView(0);
             }
         }
-//        sendNotification();
     }
 
     private Runnable runnable = new Runnable() {
@@ -116,29 +115,5 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawerLis
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
 
-    }
-
-    public void sendNotification() {
-        Intent intent = getPackageManager().getLaunchIntentForPackage("com.mvryan.katalogfilm");
-        startActivity(intent);
-        PendingIntent pendingIntent = PendingIntent
-                .getActivity(this, 0, intent, 0);
- 
-        notification = (NotificationCompat.Builder) new NotificationCompat
-                        .Builder(this)
-                        .setSmallIcon(R.mipmap.ic_notif)
-                        .setContentIntent(pendingIntent)
-                        .setLargeIcon(BitmapFactory
-                                .decodeResource(getResources()
-                                        , R.mipmap.ic_notif))
-                        .setContentTitle(getResources()
-                                .getString(R.string.content_title))
-                        .setContentText(getResources()
-                                .getString(R.string.content_text))
-                        .setSubText(getResources()
-                                .getString(R.string.subtext))
-                        .setAutoCancel(true);
-        
-        handler.postDelayed(runnable, 5000);
     }
 }

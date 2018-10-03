@@ -46,7 +46,14 @@
     <string name="add_widget">Tambah Film</string>
     <string name="empty_text">Kosong</string>
 
-    <string name="content_title">Buka Katalog Film</string>
-    <string name="content_text">Silahkan buka Katalog film hari ini</string>
+    <string name="content_title_daily">Pengingat Harian</string>
+    <string name="content_title_nowplaying">Film Terbaru</string>
+    <string name="content_text_daily">Sudah lama tidak membuka Katalog Film</string>
+    <string name="content_text_nowplaying">baru saja keluar loh</string>
     <string name="subtext">Katalog Film</string>
+
+    <string name="on_remainder_daily">Pengingat harian menyala</string>
+    <string name="off_remainder_daily">Pengingat harian mati</string>
+    <string name="on_remainder_now_playing">Pengingat film yang sedang tayang menyala</string>
+    <string name="off_remainder_now_playing">Pengingat film yang sedang tayangmati</string>
 </resources>

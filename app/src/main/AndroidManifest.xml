@@ -49,6 +49,16 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/favourite_list_image_info" />
         </receiver>
+
+        <receiver
+            android:name=".utils.notif.DailyNotif"
+            android:enabled="true"
+            android:exported="true" />
+
+        <receiver
+            android:name=".utils.notif.NowPlayingNotif"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>

@@ -45,7 +45,17 @@
     <string name="appwidget_text">My Favourite</string>
     <string name="add_widget">Add Film</string>
     <string name="empty_text">Empty</string>
-    <string name="content_title">Open Movie Catalogue</string>
-    <string name="content_text">Pleas open Movie Catalogue this day</string>
-    <string name="subtext">Movie Catalogue</string>
+
+    <string name="content_title_daily">Daily Reminder</string>
+    <string name="content_title_nowplaying">New Release</string>
+    <string name="content_text_daily">We miss you to open Katalog Film</string>
+    <string name="content_text_nowplaying">already release</string>
+    <string name="subtext">Katalog Film</string>
+
+    <string name="on_remainder_daily">Daily Remainder on</string>
+    <string name="off_remainder_daily">Daily Remainder off</string>
+    <string name="on_remainder_now_playing">Now Playing Remainder on</string>
+    <string name="off_remainder_now_playing">Now Playing Remainder off</string>
+    <string name="on_radio">On</string>
+    <string name="off_radio">Off</string>
 </resources>
